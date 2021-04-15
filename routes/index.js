@@ -13,8 +13,8 @@ router.route('/saved')
     .catch(err => res.status(422).json(err));
   })
   
-router.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+// router.use((req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
 module.exports = router;
