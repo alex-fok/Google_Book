@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import Searcher from '../../components/Searcher';
 import BookList from '../../components/BookList';
-
 import API from '../../utils/API';
+import WarningMessage from '../../components/WarningMessage';
 
 const Search = () => {
   const [keyword, setKeyword] = useState('');
@@ -22,6 +22,19 @@ const Search = () => {
     setNoResults(results.length ? false : true)
   }
 
+  const save = {
+    type: 'Save',
+    theme: 'outline-success',
+    fn: async(bookProps) => {
+      try {
+        await API.saveBook(bookProps);
+        alert(`Book '${bookProps.title}' saved.`)
+      } catch(err) {
+        alert(`WARNING: '${bookProps.title}' not saved!`)
+      }
+    }
+  }
+
   return (
     <div>
       <Searcher
@@ -30,10 +43,9 @@ const Search = () => {
       />
       {
         noResults
-          ? <div className='text-danger'>No Results Found</div>
-          : <BookList books={bookList}/>
-      }
-      
+          ? <WarningMessage msg='No Books Found!' />
+          : <BookList books={bookList} btn={save}/>
+      }  
     </div>
   );
 }
