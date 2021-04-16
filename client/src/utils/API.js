@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const searchFor = (keyword) => axios.get(`https://www.googleapis.com/books/v1/volumes?q=${keyword}`);
+const searchFor = (keyword) => axios.get(`/api/search?title=${keyword}`);
 
-const saveBook = (props) => axios.post('/saveBook', props)
+const saveBook = (props) => axios.post('/api/saveBook', props)
 
 const API = {
   searchFor, saveBook
