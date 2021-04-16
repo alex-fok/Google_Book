@@ -2,7 +2,7 @@ import {useState} from 'react';
 import Searcher from '../../components/Searcher';
 import BookList from '../../components/BookList';
 
-import GoogleBookAPI from '../../utils/GoogleBookAPI';
+import API from '../../utils/API';
 
 const Search = () => {
   const [keyword, setKeyword] = useState('');
@@ -10,8 +10,9 @@ const Search = () => {
   const [bookList, setBookList] = useState([]);
   
   const searchForBook = async() => {
-    const {items} = (await GoogleBookAPI.searchFor(keyword)).data;
+    const {items} = (await API.searchFor(keyword)).data;
     const results = items.map(b => ({
+      id: b.id,
       title: b.volumeInfo.title,
       snippet: b?.searchInfo?.textSnippet ? b.searchInfo.textSnippet : '(No Snippet Available)',
       authors: b.volumeInfo?.authors ? b.volumeInfo.authors.join(', ') : '',
