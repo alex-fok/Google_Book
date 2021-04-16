@@ -9,7 +9,7 @@ const BookListItem = ({title, snippet, authors, image}) => {
     <Container className='mb-3 py-4 border border-secondary rounded'>
       <Row>
         <Col md={9}>
-          <p className='fldfdoat-left font-weight-bold'>{title}</p>
+          <p className='float-left font-weight-bold'>{title}</p>
 
           {/* Attribute 'danerouslySetInnerHTML' is used to incorporate Google Book API's response */}
           <p className='float-left' dangerouslySetInnerHTML={{__html: snippet}}></p>
