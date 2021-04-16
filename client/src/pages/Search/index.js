@@ -10,8 +10,15 @@ const Search = () => {
   const [bookList, setBookList] = useState([]);
   
   const searchForBook = async() => {
-    const results = (await GoogleBookAPI.searchFor(keyword)).data;
-    console.log(results);
+    const {items} = (await GoogleBookAPI.searchFor(keyword)).data;
+    const results = items.map(b => ({
+      title: b.volumeInfo.title,
+      snippet: b?.searchInfo?.textSnippet ? b.searchInfo.textSnippet : '(No Snippet Available)',
+      authors: b.volumeInfo?.authors ? b.volumeInfo.authors.join(', ') : '',
+      image: b.volumeInfo?.imageLinks?.smallThumbnail ?  b.volumeInfo.imageLinks.smallThumbnail : '/favicon.ico'
+    }))
+    setBookList(results)
+    setNoResults(results.length ? false : true)
   }
 
   return (
