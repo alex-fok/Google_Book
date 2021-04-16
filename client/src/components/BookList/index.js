@@ -3,8 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import API from '../../utils/API';
 
-const BookListItem = ({title, snippet, authors, image}) => {
+const BookListItem = ({id, title, snippet, authors, image}) => {
+  
+  const save = () => {
+    API.saveBook({id, title, snippet, authors, image})
+  }
   return (
     <Container className='mb-3 py-4 border border-secondary rounded'>
       <Row>
@@ -22,7 +27,11 @@ const BookListItem = ({title, snippet, authors, image}) => {
         </Row>
         <Row>
           <Col>
-            <Button className='mr-2' variant='info'>Save</Button>
+            <Button
+              className='mr-2'
+              variant='info'
+              onClick={save}
+            >Save</Button>
             <Button variant='success'>View</Button>
           </Col>
         </Row>
