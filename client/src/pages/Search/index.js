@@ -10,8 +10,8 @@ const Search = () => {
   const [bookList, setBookList] = useState([]);
   
   const searchForBook = async() => {
-    const {items} = (await API.searchFor(keyword)).data;
-    const results = items.map(b => ({
+    const {data} = await API.searchFor(keyword);
+    const results = data.map(b => ({
       id: b.id,
       title: b.volumeInfo.title,
       snippet: b?.searchInfo?.textSnippet ? b.searchInfo.textSnippet : '(No Snippet Available)',
