@@ -13,17 +13,39 @@ router.route('/search')
     });
   })
 
-router.route('/saveBook')
+router.route('/book')
   .post(async(req, res) => {
     const {id, title, snippet, authors, image} = req.body;
-    const answer = await db.Book.create({
-      _id: id,
-      title,
-      snippet,
-      authors,
-      image
-    });
-    console.log(answer);
+    try {
+      await db.Book.create({
+        _id: id,
+        title,
+        snippet,
+        authors,
+        image
+      });
+      res.status(200).end();
+    } catch(err) {
+      res.status(422).end();
+    } 
   })
+  .delete(async(req, res) => {
+    const {id} = req.body;
+    try {
+      await db.Book.deleteOne({_id: id});
+      console.log({id: id})
+      res.json({id: id});
+    } catch(err) {
+      res.status(422).end();
+    }
+  })
+
+router.route('/books')
+.get((req,res) => {
+  db.Book
+  .find({})
+  .then(books => res.json(books))
+  .catch(err => res.status(422).json(err));
+})
 
 module.exports = router;
